@@ -54,10 +54,10 @@ extern Pin leftSensor;
 extern Pin farLeftSensor;
 
 
-extern Pin frontLeftHall = 10;
-extern Pin frontRightHall = 13;
-extern Pin backLeftHall = 18;
-extern Pin backRightHall = 14;
+extern Pin frontLeftHall;
+extern Pin frontRightHall;
+extern Pin backLeftHall;
+extern Pin backRightHall;
 
 //VARIABLE DECLARATIONS
 extern uint8_t readings;
@@ -77,9 +77,10 @@ struct IRreading{
 
 };
 
-struct HallReading{
+struct MovementData{
     TickType_t timestamp;
     uint16_t totalRevolutions;
+    
 };
 
 

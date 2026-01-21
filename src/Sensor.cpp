@@ -9,7 +9,14 @@ Sensor::Sensor()
 {
     IRReadingQueue = xQueueCreate(50,sizeof(IRreading));
     HallReadingQueue = xQueueCreate(50,sizeof(IRreading));
-    totalHallReadings = 0
+    totalHallReadings = 0;
+    hallReadingsSinceLastTime = 0;
+    lastReadingTime = xTaskGetTickCount();
+    distanceSinceLastTime = 0;        static uint16_t totalHallReadings;
+        static uint8_t hallReadingsSinceLastTime;
+        static TickType_t lastReadingTime;
+        static int cmPerSecond;
+        static int distanceSinceLastTime;
 }
 
 void Sensor::readIRSensors()
@@ -61,12 +68,26 @@ void Sensor::readIRSensors()
 }
 
 
+
 void IRAM_ATTR Sensor::handleHallSensors(){
+    hallReadingsSinceLastTime++;
     totalHallReadings++;
 
+    calculateMovementData();
 }
 
+void Sensor::calculateMovementData(){
+    TickType_t now = xTaskGetTickCount() ;
+    uint32_t elapsedTime = pdTICKS_TO_MS(now - lastReadingTime);
+    lastReadingTime = now;
 
+    if(elapsedTime > 1000){
+        distanceSinceLastTime = 2 * (int)(hallReadingsSinceLastTime/4)  ;
+        cmPerSecond = distanceSinceLastTime / (elapsedTime/1000); //wheel has circumference of 2cm
+        hallReadingsSinceLastTime = 0;
+    }
+    
+}
 
 
 

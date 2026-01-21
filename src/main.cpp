@@ -19,32 +19,19 @@ void handleMovement(void* pv){
   engineLeft.setEngineDirection(FORWARD);
   engineRight.setEngineDirection(FORWARD);
   for(;;){
-    // int steering = algorithm.determineSteering();
-    // int baseSpeed = 130; 
+    int steering = algorithm.determineSteering();
+    int baseSpeed = 130; 
 
-    // int left = baseSpeed - steering;
-    // int right = baseSpeed + steering;
+    int left = baseSpeed - steering;
+    int right = baseSpeed + steering;
 
-    // left = constrain(left, 0, 255);
-    // right = constrain(right, 0, 255);
+    left = constrain(left, 0, 255);
+    right = constrain(right, 0, 255);
 
-    // engineLeft.setEngineSpeed(left);
-    // engineRight.setEngineSpeed(right);
-
-    engineLeft.setEngineDirection(FORWARD);
-    engineRight.setEngineDirection(FORWARD);
-    engineLeft.setEngineSpeed(200);
-    engineRight.setEngineSpeed(200);
+    engineLeft.setEngineSpeed(left);
+    engineRight.setEngineSpeed(right);
 
 
-    vTaskDelay(pdMS_TO_TICKS(2000));
-      engineLeft.setEngineDirection(BACKWARD);
-    engineRight.setEngineDirection(BACKWARD);
-    engineLeft.setEngineSpeed(200);
-    engineRight.setEngineSpeed(200);
-
-
-    vTaskDelay(pdMS_TO_TICKS(2000));
 
   }
 }
@@ -99,8 +86,8 @@ void setup() {
 
   xTaskCreate(handleSensors,"handleSensors",4096,NULL,10,NULL);
   xTaskCreate(handleMovement,"handleMovement",4096,NULL,10,NULL);
-  // xTaskCreate(handleCommunication,"handleCommunication",4096,NULL,2,NULL);
-  // xTaskCreate(handleScreen,"handleScreen",4096,NULL,1,NULL);
+  xTaskCreate(handleCommunication,"handleCommunication",4096,NULL,2,NULL);
+  xTaskCreate(handleScreen,"handleScreen",4096,NULL,1,NULL);
 
 
 

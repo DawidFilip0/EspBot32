@@ -8,8 +8,16 @@ class Sensor
         Sensor();
         void readIRSensors();
         static void handleHallSensors();
-    private:
+        static void calculateMovementData();
+
         static uint16_t totalHallReadings;
+        static uint8_t hallReadingsSinceLastTime;
+        static TickType_t lastReadingTime;
+        static int cmPerSecond;
+        static int distanceSinceLastTime;
+    private:
+
+        
 
 };
 

@@ -10,9 +10,9 @@ int AlgorithmLineFollwing::determineSteering() {
 
 IRreading reading;
 int position = 0;
-if(xQueueReceive(IRReadingQueue, &reading, pdMS_TO_TICKS(500)) == pdPASS){
-  position = calcPostion(reading.readings);
-}
+// if(xQueueReceive(IRReadingQueue, &reading, pdMS_TO_TICKS(500)) == pdPASS){
+//   position = calcPostion(reading.readings);
+// }
 
 
 int steering = position * kp;

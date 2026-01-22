@@ -1,0 +1,25 @@
+#include "RingBuffer.h"
+
+
+template <typename T, std::size_t N>
+RingBuffer<T, N>::RingBuffer() {
+    readings.fill(T{});  
+}
+
+template <typename T, std::size_t N>
+void RingBuffer<T,N>::recordReading(const T& reading) {
+    head = (head + 1) % 50;
+    readings[head] = reading;
+    if (count < 50) {
+        ++count;
+    };
+}
+
+template <typename T, std::size_t N>
+void RingBuffer<T, N>::copyBuffer(std::array<T, N>& out) const {
+    for (std::size_t i = 0; i < count; ++i) {
+        std::size_t index = (head + i + N - count) % N;
+        out[i] = readings[index];
+    }
+}
+

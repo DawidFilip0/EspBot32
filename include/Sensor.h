@@ -1,6 +1,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 #include <globals.h>
+#include "RingBuffer.h"
 
 class Sensor
 {

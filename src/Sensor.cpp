@@ -10,15 +10,13 @@ TickType_t Sensor::lastReadingTime = 0;
 int Sensor::distanceSinceLastTime = 0; 
 int Sensor::cmPerSecond = 0;
 
+
 Sensor::Sensor()
 {
-    // IRReadingQueue = xQueueCreate(50,sizeof(IRreading));
     HallReadingQueue = xQueueCreate(50,sizeof(IRreading));   
     lastReadingTime = xTaskGetTickCount();   
 }
-
-void Sensor::readIRSensors()
-{
+void Sensor::readIRSensors(){
     IRreading sensorsValues;
     uint8_t  readings = 0;
     readings = 0b00000000;
@@ -30,16 +28,8 @@ void Sensor::readIRSensors()
 
     sensorsValues.readings = readings;
     sensorsValues.timestamp = xTaskGetTickCount();
-
-
-    // if(xQueueSend(IRReadingQueue, &sensorsValues, pdMS_TO_TICKS(50)) != pdPASS){
-    //     Serial.println("Failed to send data to queue");
-    // }
-    
-
+    IRreadingBuffer.recordReading(sensorsValues);  
 }
-
-
 
 void IRAM_ATTR Sensor::handleHallSensors(){
     hallReadingsSinceLastTime++;

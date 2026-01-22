@@ -1,7 +1,6 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include <globals.h>
 #include <array>
 
 template <typename T, std::size_t N>
@@ -10,7 +9,7 @@ public:
     RingBuffer();
 
     void recordReading(const T& value);
-    void copyBuffer(std::array<T, N>& out) const;
+    void copyBuffer(std::array<T, N>& out, int& headIndex) const;
 
 private:
     std::array<T, N> readings;
@@ -18,4 +17,9 @@ private:
     std::size_t count = 0;
 };
 
+
+
+
 #endif
+
+

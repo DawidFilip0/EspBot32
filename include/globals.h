@@ -1,6 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 #include <Arduino.h>
+#include "RingBuffer.h"
 
 typedef uint8_t Pin;
 
@@ -67,7 +68,6 @@ extern int recentReadingsChecked;
 extern int kp;
 extern Pin enPower;
 
-extern QueueHandle_t IRReadingQueue;
 extern QueueHandle_t HallReadingQueue;
 
 
@@ -82,6 +82,8 @@ struct MovementData{
     uint16_t totalRevolutions;
     
 };
+
+extern RingBuffer<IRreading, 50>  IRreadingBuffer;
 
 
 

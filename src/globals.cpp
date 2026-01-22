@@ -1,5 +1,4 @@
 #include <globals.h>
-#include "RingBuffer.h"
 
 //PIN DECLARATIONS
 // Motor A (left) connections
@@ -38,5 +37,5 @@ int recentReadingsChecked = 50;
 int kp = 10;
 
 
-RingBuffer<IRreading, 50>*  IRreadingBuffer;
 QueueHandle_t HallReadingQueue = NULL;
+RingBuffer<IRreading, 50> IRreadingBuffer;

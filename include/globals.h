@@ -24,13 +24,14 @@ enum direction {
 };
 
 enum movementAction {
-  STOP = 0b000,
-  ROTATE_LEFT = 0b100,
-  TURN_LEFT = 0b110,
-  MOVE_FORWARD = 0b010,
-  TURN_RIGHT = 0b011,
-  ROTATE_RIGHT = 0b001,
-  CROSSROAD = 0b111
+  RECOVERY = 0b00000,
+  ROTATE_LEFT = 0b10000,
+  TURN_LEFT = 0b01100,
+  MOVE_FORWARD = 0b00100,
+  MOVE_BACKWARD = 0b10001,
+  TURN_RIGHT = 0b00110,
+  ROTATE_RIGHT = 0b00001,
+  CROSSROAD = 0b11111
 };
 
 
@@ -82,6 +83,9 @@ struct MovementData{
     uint16_t totalRevolutions;
     
 };
+
+
+
 
 extern RingBuffer<IRreading, 50>  IRreadingBuffer;
 

@@ -9,9 +9,9 @@ RingBuffer<T, N>::RingBuffer() {
 
 template <typename T, std::size_t N>
 void RingBuffer<T,N>::recordReading(const T& reading) {
-    head = (head + 1) % 50;
+    head = (head + 1) % N;
     readings[head] = reading;
-    if (count < 50) {
+    if (count < N) {
         ++count;
     };
 }
